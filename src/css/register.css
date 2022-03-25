@@ -1,0 +1,82 @@
+#register #create-account-form {
+    text-transform: uppercase;
+}
+
+#register .title {
+    margin-bottom: 10px;
+}
+
+#register .input-group {
+    margin: 10px 0;
+    position: relative;
+}
+
+#register .input-group label {
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+#register .input-group input {
+    display: block;
+    width: 100%;
+    padding: 5px;
+}
+
+#register textarea{
+    display: block;
+    width: 100%;
+    padding: 5px;
+    height: 40vh;
+    resize: none;
+}
+
+#register .error input {
+    border: 3px red solid;
+    border-radius: 8px;
+
+}
+
+#register .success input {
+    border: 3px green solid;
+    border-radius: 8px;
+}
+
+#register .input-group i {
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    visibility: hidden;
+}
+
+#register .input-group p {
+    font-size: 15px;
+    color: red;
+    visibility: hidden;
+    margin-bottom: -0.0001%;
+}
+
+#register .error p {
+    visibility: visible;
+}
+
+#register .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #343a40;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+}
+
+#register .btn:hover{
+    color: white;
+    background-color: #1e2225;
+}
+
+#register .p{
+    margin-top: 2%;
+    margin-bottom: -3%;
+    text-align: center;
+    display: block;
+}

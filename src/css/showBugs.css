@@ -1,0 +1,51 @@
+#showBugs{
+    width: 50vw;
+}
+
+#showBugs .btn {
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    border: #343a40 3px solid;
+    margin-top: 1%;
+}
+
+#showBugs .btn:hover {
+
+    color: white;
+    background-color: #1e2225;
+}
+
+#showBugs .btn2 {
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    margin-top: 1%;
+    border: 3px #343a40 solid;
+    border-radius: 4px;
+}
+
+#showBugs h2 {
+    text-align: left;
+}
+
+#showBugs hr{
+    background-color: #343a40;
+    border-top:1px solid #343a40;
+}
+
+#showBugs .div{
+    width: 100%;
+}
+
+#showBugs .green{
+    background-color: rgb(36, 163, 4);
+    color: white;
+    border: 3px rgb(36, 163, 4) solid;
+}
+
+#showBugs .green:hover {
+    color: white;
+    background-color: #27812f;
+    border: #27812f 3px solid;
+}

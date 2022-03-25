@@ -1,0 +1,107 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  overflow: auto;
+}
+
+.App{
+  width: 100%;
+}
+
+.bg {
+  animation: slide 3s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+  bottom: 0;
+  left: -50%;
+  opacity: .5;
+  position: fixed;
+  right: -50%;
+  top: 0;
+  z-index: -1;
+}
+
+.bg2 {
+  animation-direction: alternate-reverse;
+  animation-duration: 4s;
+}
+
+.bg3 {
+  animation-duration: 5s;
+}
+
+.content {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 0 .25em rgba(0, 0, 0, .25);
+  box-sizing: border-box;
+  left: 50%;
+  padding: 5vmin;
+  position: relative;
+  text-align: center;
+  top: 47vh;
+  transform: translate(-50%, -50%);
+  height: fit-content;
+  width: fit-content;
+  text-transform: uppercase;
+
+}
+
+.container{
+  overflow: auto;
+  width: 100%;
+  height: 94%;
+}
+
+h1 {
+  font: 200% monospace;
+}
+
+h2{
+  font: 200% monospace;
+}
+
+@keyframes slide {
+  0% {
+      transform: translateX(-25%);
+  }
+  100% {
+      transform: translateX(25%);
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d5d5d5;
+  border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background: #343a40;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #343a40;
+}
+
+.Toastify__toast-container{
+  top: 4em !important;
+}

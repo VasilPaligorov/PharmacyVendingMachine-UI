@@ -1,0 +1,93 @@
+#reportABug #create-account-form {
+    text-transform: uppercase;
+}
+
+#reportABug .title {
+    margin-bottom: 10px;
+}
+
+#reportABug .input-group {
+    margin: 10px 0;
+    position: relative;
+}
+
+#reportABug .input-group label {
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+#reportABug .input-group input {
+    display: block;
+    width: 100%;
+    padding: 5px;
+}
+
+#reportABug textarea{
+    display: block;
+    width: 100%;
+    padding: 5px;
+    height: 40vh;
+    resize: none;
+}
+
+#reportABug .error input{
+    border: 3px red solid;
+    border-radius: 8px;
+
+}
+
+#reportABug .success input{
+    border: 3px green solid;
+    border-radius: 8px;
+}
+
+#reportABug .error textarea{
+    border: 3px red solid;
+    border-radius: 8px;
+
+}
+
+#reportABug .success textarea{
+    border: 3px green solid;
+    border-radius: 8px;
+}
+
+#reportABug .input-group i {
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    visibility: hidden;
+}
+
+#reportABug>.input-group p {
+    font-size: 15px;
+    color: red;
+    visibility: hidden;
+    margin-bottom: -0.0001%;
+}
+
+#reportABug .error p {
+    visibility: visible;
+}
+
+#reportABug .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #343a40;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+}
+
+#reportABug .btn:hover{
+    color: white;
+    background-color: #1e2225;
+}
+
+#reportABug .p{
+    margin-top: 2%;
+    margin-bottom: -3%;
+    text-align: center;
+    display: block;
+}

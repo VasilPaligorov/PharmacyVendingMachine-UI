@@ -1,0 +1,51 @@
+#showMedicines button {
+    align-self: center;
+}
+
+#showMedicines .content {
+    width: 75vw;
+}
+
+#showMedicines table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#showMedicines td, #showMedicines>th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: center;
+    width: 25%;
+}
+
+#showMedicines tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+#showMedicines tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255);
+}
+
+#showMedicines .rmvBtn {
+    height: 100%;
+    width: fit-content;
+    background-color: #343a40;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+}
+
+#showMedicines .rmvBtn:hover {
+    color: white;
+    background-color: #1e2225;
+}
+
+#showMedicines h2 {
+    text-align: left;
+}
+
+hr{
+    background-color: #343a40;
+    border-top:1px solid #343a40;
+}

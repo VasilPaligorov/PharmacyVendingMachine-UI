@@ -1,0 +1,72 @@
+#login #create-account-form {
+    width: 400px;
+    padding: 20px;
+    text-transform: uppercase;
+}
+
+#login .title {
+    margin-bottom: 20px;
+}
+
+#login .input-group {
+    margin: 20px 0;
+    position: relative;
+}
+
+#login .input-group label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+#login .input-group input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+}
+
+#login .error input {
+    border: 3px red solid;
+    border-radius: 8px;
+}
+
+#login .success input {
+    border: 3px green solid;
+    border-radius: 8px;
+
+}
+
+#login .input-group i {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    visibility: hidden;
+}
+
+
+#login .input-group p {
+    font-size: 15px;
+    color: red;
+    visibility: hidden;
+}
+
+#login .error p {
+    visibility: visible;
+}
+
+#login .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #343a40;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    margin-bottom: 3%;
+}
+
+#login .btn:hover {
+    color: white;
+    background-color: #1e2225;
+}
+
+

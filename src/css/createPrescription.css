@@ -1,0 +1,130 @@
+#createPrescription .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#createPrescription .btn {
+    font-size: 105%;
+    background-color: #343a40;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    width: 20%;
+    margin-top: -0.65%;
+}
+
+#createPrescription .btn:hover {
+    color: white;
+    background-color: #1e2225;
+}
+
+#createPrescription .topBar {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+#createPrescription .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+}
+
+#createPrescription label {
+    width: 75%;
+    font-size: 125%;
+    align-self: center;
+}
+
+#createPrescription input {
+    width: 95%;
+    font-size: 125%;
+}
+
+#createPrescription .error input {
+    border: 3px red solid;
+    border-radius: 8px;
+}
+
+#createPrescription .success input {
+    border: 3px green solid;
+    border-radius: 8px;
+
+}
+
+#createPrescription p {
+    font-size: 115%;
+    color: red;
+    visibility: hidden;
+}
+
+#createPrescription .error p {
+    visibility: visible;
+}
+
+#createPrescription button {
+    align-self: center;
+}
+
+#createPrescription .content {
+    width: 75%;
+}
+
+#createPrescription .line {
+    border-top: #343a40 3px solid;
+    margin-top: 3vh;
+}
+
+#createPrescription table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#createPrescription td, #createPrescription th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: center;
+    width: 33.3%;
+}
+
+#createPrescription tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+#createPrescription tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255);
+}
+
+#createPrescription #prescription {
+    height: auto;
+}
+
+#createPrescription .rmvBtn {
+    height: 100%;
+    width: 100%;
+    background-color: #343a40;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+}
+
+#createPrescription .rmvBtn:hover {
+    color: white;
+    background-color: #1e2225;
+}
+
+#createPrescription .tableContainer {
+    height: 50vh;
+    overflow: auto;
+}
+
+#createPrescription .last {
+    margin-top: 3%;
+    width: 100%;
+}
+
+#createPrescription tr{
+    text-transform: none;
+}

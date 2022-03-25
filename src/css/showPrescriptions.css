@@ -1,0 +1,95 @@
+#showPresriptions .content {
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+}
+
+#showPresriptions .btn {
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    border: #343a40 3px solid;
+    margin-top: 1%;
+}
+
+#showPresriptions .btn:hover {
+
+    color: white;
+    background-color: #1e2225;
+}
+
+#showPresriptions .btn2 {
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    margin-top: 1%;
+    border: 3px #343a40 solid;
+    border-radius: 4px;
+}
+
+#showPresriptions .btnWrapper{
+    display: flex;
+    justify-content: space-between;
+}
+
+#showPresriptions table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    position: relative;
+}
+
+#showPresriptions td, #showPresriptions th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    width: 33%;
+}
+
+#showPresriptions tr {
+    width: 100%;
+}
+
+#showPresriptions tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+#showPresriptions tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255);
+}
+
+#showPresriptions h2 {
+    text-align: left;
+}
+
+#showPresriptions hr{
+    background-color: #343a40;
+    border-top:1px solid #343a40;
+}
+
+#showPresriptions .div{
+    width: 100%;
+}
+
+#showPresriptions .red{
+    background-color: rgb(206, 6, 6);
+    color: white;
+    border: 3px rgb(206, 6, 6) solid;
+}
+
+#showPresriptions .red:hover {
+    color: white;
+    background-color: #ad1c1c;
+    border: #ad1c1c 3px solid;
+}
+
+#showPresriptions .green{
+    background-color: rgb(36, 163, 4);
+    color: white;
+    border: 3px rgb(36, 163, 4) solid;
+}
+
+#showPresriptions .green:hover {
+    color: white;
+    background-color: #27812f;
+    border: #27812f 3px solid;
+}
