@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './elements/SharedElements/login&register/login';
-import Register from './elements/SharedElements/login&register/register';
+import Login from './elements/SharedElements/login/login';
+import Register from './elements/SharedElements/register/register';
 import ReportABug from './elements/SharedElements/reportABug/reportABug';
 import ShowPrescriptions from './elements/SharedElements/prescriptions/showPrescriptions';
-import ShowMedicines from './elements/Desktop/Admin/medicines/showMedicines';
+import ShowMedicines from './elements/Admin/medicines/showMedicines';
 import CreatePrescription from './elements/SharedElements/prescriptions/createPrescription';
-import ShowBugs from './elements/Desktop/Admin/showBugs/showBugs';
+import ShowBugs from './elements/Admin/showBugs/showBugs';
 import { Navigate } from 'react-router-dom';
-import CreateMedicine from './elements/Desktop/Admin/medicines/createMedicine';
+import CreateMedicine from './elements/Admin/medicines/createMedicine';
 
 function App() {
   return (
