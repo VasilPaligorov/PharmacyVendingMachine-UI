@@ -46,6 +46,7 @@ body {
   transform: translate(-50%, -50%);
   height: fit-content;
   width: fit-content;
+  max-width: 80vw;
   text-transform: uppercase;
 
 }

@@ -27,10 +27,10 @@ function App() {
               <Route path='/createMedicine' element={<CreateMedicine />} />
               <Route path='/reportABug' element={<ReportABug />} />
               <Route path='/showBugs' element={<ShowBugs />} />
-              {sessionStorage.getItem('machineIP')?
+              {sessionStorage.getItem('machineIP') && localStorage.getItem("email")==='admin@gmail.com'? 
                 <>
                   <Route path='/showMachineMedicines' element={<ShowMedicines />} />
-                  <Route path='/addMachine' element={<ShowMedicines />} />
+                  <Route path='/addMedicineToMachine' element={<CreateMedicine />} />
                 </> :
                 <></>
               }

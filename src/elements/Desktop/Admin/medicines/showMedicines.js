@@ -84,7 +84,7 @@ class ShowMedicines extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.data.map((medicine, index) =>
+                                    {this.state.data.map((medicine) =>
                                         <tr>
                                             <td>{medicine.name}</td>
                                             {this.state.ip !== 'http://localhost:8081/medicines' ?
