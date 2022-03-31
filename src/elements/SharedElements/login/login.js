@@ -34,8 +34,6 @@ class Login extends React.Component {
                     if (data === true) {
                         toast.success("Connection succeed!" + (window.localStorage.getItem("email") ? "" : "Please login to continue."))
                         sessionStorage.setItem('machineIP', machineIP);
-                        if (window.localStorage.getItem('email'))
-                            window.location.href = ("/showPrescriptions");
                     }
                     else
                         toast.error("Machine is offline.")
@@ -43,10 +41,8 @@ class Login extends React.Component {
                     toast.error("Machine is offline.")
                 });
         }
-        else {
-            if (window.localStorage.getItem('email'))
-                window.location.href = ("/showPrescriptions");
-        }
+        if (window.localStorage.getItem('email'))
+            window.location.href = ("/showPrescriptions");
         
         this.form = document.querySelector('#create-account-form');
         this.emailInput = document.querySelector('#email');
@@ -71,12 +67,14 @@ class Login extends React.Component {
         this.validateForm();
         if (this.isFormValid() === true) {
             if (this.state.email === "admin@gmail.com" && this.state.password === "admin123") {
-                window.localStorage.setItem('email', this.state.email);
-                window.localStorage.setItem('password', this.state.password);
+                window.localStorage.setItem('email', 'admin');  
+                window.localStorage.setItem('password', 'admin');
                 window.location.href = ("/showPrescriptions");
             }
             let user = 'doctor';
-            if (navigator.userAgentData.platform === "Android") user = 'patient';
+            console.log(navigator.userAgentData.platform)
+            if (navigator.userAgentData.platform === "Android" || navigator.userAgentData.platform ==="iOS") 
+                user = 'patient';
             let headers = new Headers();
             headers.set('Authorization', 'Basic ' + btoa(this.state.email + ":" + this.state.password));
             headers.set('Content-Type', 'application/json');
@@ -86,7 +84,10 @@ class Login extends React.Component {
                 if (r.status === 200) {
                     window.localStorage.setItem('email', this.state.email);
                     window.localStorage.setItem('password', this.state.password);
-                    if (navigator.userAgentData.platform === "Android") window.location.href = ("/showPrescriptions"); else window.location.href = ("/createPrescription");
+                    if (navigator.userAgentData.platform === "Android" || navigator.userAgentData.platform === "iOS")
+                        window.location.href = ("/showPrescriptions"); 
+                    else 
+                        window.location.href = ("/createPrescription");
                 } else {
                     this.setError(this.emailInput, "Email or password is incorrect.");
                     this.setError(this.passwordInput, "Email or password is incorrect.");

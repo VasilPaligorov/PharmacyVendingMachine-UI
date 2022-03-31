@@ -1,6 +1,6 @@
 import React from "react";
 import "./../../../css/register.css";
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 class Register extends React.Component {
@@ -11,6 +11,7 @@ class Register extends React.Component {
     workplaceInput;
     passwordInput;
     confirmPasswordInput;
+    platform = navigator.userAgentData.platform;
 
     constructor(props) {
         super(props);
@@ -56,7 +57,6 @@ class Register extends React.Component {
         })
     };
 
-    platform = navigator.userAgentData.platform;
 
     componentDidMount() {
         sessionStorage.clear()
@@ -74,7 +74,7 @@ class Register extends React.Component {
         this.validateForm();
         if (this.isFormValid() === true) {
             let user = 'doctor';
-            if (this.platform === "Android")
+            if (this.platform === "Android" || this.platform === "iOS")
                 user = 'patient';
             const data = {
                 fullName: this.state.fullName,
@@ -98,7 +98,6 @@ class Register extends React.Component {
                     this.setError(this.uinInput, "Your UIN is incorrect.");
                 }
             });
-
         }
     }
 
@@ -114,7 +113,6 @@ class Register extends React.Component {
     }
 
     validateForm() {
-        //USERNAME
         if (this.state.fullName.trim() === '') {
             this.setError(this.fullNameInput, 'Name can not be empty');
         } else if (this.state.fullName.trim().length < 6) {
@@ -122,7 +120,7 @@ class Register extends React.Component {
         } else {
             this.setSuccess(this.fullNameInput);
         }
-        //EMAIL
+
         if (this.state.email.trim() === '') {
             this.setError(this.emailInput, 'Provide email address');
         } else if (this.state.email.trim() === 'admin@gmail.com')
@@ -132,16 +130,15 @@ class Register extends React.Component {
         } else {
             this.setError(this.emailInput, 'Provide valid email address');
         }
-        if (this.platform !== "Android") {
-            //UIN
+        if (this.platform === "Linux" || this.platform === "macOS" || this.platform === "Windows") {
             if (this.state.uin.trim() === '') {
                 this.setError(this.uinInput, 'UIN can not be empty');
-            } else if (this.state.uin.trim().length < 10 || this.state.uin.trim().length > 10) {
+            } else if (this.state.uin.trim().length !== 10) {
                 this.setError(this.uinInput, 'UIN must be 10-digit number');
             } else {
                 this.setSuccess(this.uinInput);
             }
-            //WORKPLACE
+
             if (this.state.workplace.trim() === '') {
                 this.setError(this.workplaceInput, 'Workspace can not be empty');
             } else if (this.state.workplace.trim().length < 6) {
@@ -150,7 +147,7 @@ class Register extends React.Component {
                 this.setSuccess(this.workplaceInput);
             }
         }
-        //PASSWORD
+
         if (this.state.password.trim() === '') {
             this.setError(this.passwordInput, 'Password can not be empty');
         } else if (this.state.password.trim().length < 6 || this.state.password.trim().length > 16) {
@@ -158,7 +155,7 @@ class Register extends React.Component {
         } else {
             this.setSuccess(this.passwordInput);
         }
-        //CONFIRM PASSWORD
+
         if (this.state.confirmPassword.trim() === '') {
             this.setError(this.confirmPasswordInput, 'Password can not be empty');
         } else if (this.state.confirmPassword !== this.state.password) {
@@ -193,24 +190,25 @@ class Register extends React.Component {
     }
 
 
-    isWeb() {
-        if (this.platform === "Linux") return (<>
-            <div className="input-group">
-                <label htmlFor="uin">UIN</label>
-                <input type="number" value={this.state.uin} onChange={event => {
-                    this.getUIN(event)
-                }} id="uin" placeholder="UIN:" name="uin" />
-                <p>Error Message</p>
-            </div>
+    isDesktop() {
+        if (this.platform === "Linux" || this.platform === "macOS" || this.platform === "Windows") return (
+            <>
+                <div className="input-group">
+                    <label htmlFor="uin">UIN</label>
+                    <input type="number" value={this.state.uin} onChange={event => {
+                        this.getUIN(event)
+                    }} id="uin" placeholder="UIN:" name="uin" />
+                    <p>Error Message</p>
+                </div>
 
-            <div className="input-group">
-                <label htmlFor="workplace">Workplace</label>
-                <input type="text" value={this.state.workplace} onChange={event => {
-                    this.getWorkplace(event)
-                }} id="workplace" placeholder="Workplace:" name="workplace" />
-                <p>Error Message</p>
-            </div>
-        </>)
+                <div className="input-group">
+                    <label htmlFor="workplace">Workplace</label>
+                    <input type="text" value={this.state.workplace} onChange={event => {
+                        this.getWorkplace(event)
+                    }} id="workplace" placeholder="Workplace:" name="workplace" />
+                    <p>Error Message</p>
+                </div>
+            </>)
         else
             return null;
     }
@@ -238,7 +236,7 @@ class Register extends React.Component {
                         }} id="email" placeholder="Email:" name="email" />
                         <p>Error Message</p>
                     </div>
-                    {this.isWeb()}
+                    {this.isDesktop()}
                     <div className="input-group">
                         <label htmlFor="password">Password</label>
                         <input type="password" value={this.state.password} onChange={event => {

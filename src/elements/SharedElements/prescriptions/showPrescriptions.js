@@ -19,12 +19,12 @@ class ShowPrescriptions extends React.Component {
 
     componentDidMount() {
         let user = 'doctor';
-        if (this.state.platform === "Android") {
+        if (this.state.platform === "Android" || this.state.platform === "iOS") {
             user = 'patient';
             this.setState({ patient: true });
             this.setState({ doctor: false });
         }
-        if (localStorage.getItem("email") === "admin@gmail.com") {
+        if (localStorage.getItem("email") === "admin") {
             this.setState({ admin: true })
             this.setState({ doctor: false });
             user = 'all';
@@ -106,7 +106,7 @@ class ShowPrescriptions extends React.Component {
             .then(response => response.json())
             .then(data => {
                 if (data.status === 0) {
-                    toast.success(data.message + " Your prescription will be completed soon!");
+                    toast.info(data.message + " Your prescription will be completed soon!");
                     window.location.reload()
                 } else
                     toast.error(data.message);
@@ -132,7 +132,6 @@ class ShowPrescriptions extends React.Component {
                                             <tr>
                                                 <th>name</th>
                                                 <th>amount</th>
-                                                <th>price</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -140,7 +139,6 @@ class ShowPrescriptions extends React.Component {
                                                 <tr>
                                                     <td>{medicine.name}</td>
                                                     <td>{medicine.quantity}</td>
-                                                    <td>{medicine.quantity} * {medicine.price} = {(medicine.quantity) * medicine.price}</td>
                                                 </tr>
                                             )}
                                         </tbody>
@@ -185,7 +183,6 @@ class ShowPrescriptions extends React.Component {
                                             <tr>
                                                 <th>name</th>
                                                 <th>amount</th>
-                                                <th>price</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -193,7 +190,6 @@ class ShowPrescriptions extends React.Component {
                                                 <tr>
                                                     <td>{medicine.name}</td>
                                                     <td>{medicine.quantity}</td>
-                                                    <td>{medicine.quantity} * {medicine.price} = {(medicine.quantity) * medicine.price}</td>
                                                 </tr>
                                             )}
                                         </tbody>

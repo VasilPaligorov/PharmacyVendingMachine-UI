@@ -74,7 +74,7 @@ class ShowBugs extends React.Component {
                             </div>
                         </div>
                     )
-                    : <p>You dont have valid prescriptions yet!</p>
+                    : <p>There's no bugs yet!</p>
             }
         </div>)
     }

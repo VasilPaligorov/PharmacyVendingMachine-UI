@@ -69,7 +69,7 @@ class ReportABug extends React.Component {
         } else {
             this.setSuccess(this.bugTitleInput);
         }
-        //BUG BODY
+
         if (this.state.body.trim() === '') {
             this.setError(this.bugBodyInput, 'Bug body can not be empty');
         } else if (this.state.body.trim().length < 6) {

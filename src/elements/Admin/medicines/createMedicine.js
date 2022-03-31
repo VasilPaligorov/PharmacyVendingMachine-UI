@@ -114,9 +114,9 @@ class CreateMedicine extends React.Component {
                             .then(data => {
                                 data.push({
                                     "medicineName": this.state.medicine,
-                                    "slotID": this.state.slotID
+                                    "slotID": parseInt(this.state.slotID)
                                 })
-                                fetch(sessionStorage.getItem("machineIP") + "/configuration/router/mapping", {
+                                fetch(sessionStorage.getItem("machineIP") + "/configuration/router/mapping", {                               
                                     method: "POST",
                                     headers: headers,
                                     body: JSON.stringify(data)
@@ -125,11 +125,16 @@ class CreateMedicine extends React.Component {
                                         toast.success("Medicine created!")
                                     } else {
                                         toast.error("Invalid slot ID")
+                                        this.setError(this.slotInput, "This slot is already taken!")
+                                        fetch(sessionStorage.getItem("machineIP") + '/medicines?name=' + this.state.medicine, {
+                                            method: "DELETE",
+                                            headers: headers
+                                        })
                                     }
                                 })
                             })
                     }
-                    else {
+                    else if(r.status === 302){
                         fetch(sessionStorage.getItem("machineIP") + "/medicines?name=" + this.state.currentMedicine.name, {
                             method: "PUT",
                             headers: headers,
@@ -143,12 +148,14 @@ class CreateMedicine extends React.Component {
                             )
 
                         }).then(response => {
-                            if(response.status === 200)
+                            if (response.status === 200)
                                 toast.success("Medicine updated");
                             else
                                 toast.error("Something unexpected heppened! Try again.")
                         })
                     }
+                    else
+                        toast.error("Something unexpected heppened! Try again.")
                 })
 
             } else {
@@ -169,9 +176,14 @@ class CreateMedicine extends React.Component {
                     if (r.status === 200) {
                         toast.success("Medicine created!");
                     }
-                    else
+                    else if (r.status === 302) {
                         toast.error("Medicine already exists!");
-                    this.setError(this.medicineInput)
+                        this.setError(this.medicineInput, "Medicine already exists!")
+                    }
+                    else {
+                        toast.error("Something unexpected happened! Try again.");
+                        this.setError(this.medicineInput, "Something unexpected happened! Try again.")
+                    }
                 })
             }
 

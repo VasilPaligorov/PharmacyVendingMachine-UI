@@ -59,7 +59,7 @@
     visibility: hidden;
 }
 
-#reportABug>.input-group p {
+#reportABug .input-group p {
     font-size: 15px;
     color: red;
     visibility: hidden;

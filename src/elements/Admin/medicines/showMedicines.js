@@ -9,14 +9,17 @@ class ShowMedicines extends React.Component {
         this.state = {
             data: null,
             ip: 'http://localhost:8081/medicines',
+            pathname: ""
         };
     }
 
     async componentDidMount() {
         const url = new URL(window.location.href);
+        this.setState({pathname: url.pathname});
         if (url.pathname === '/showMachineMedicines') {
             const newIP = sessionStorage.getItem('machineIP') + '/medicines?prescription=both';
             await this.setState({ ip: newIP });
+
         }
         let headers = new Headers();
         headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem("email") + ":" + localStorage.getItem("password")));
@@ -36,7 +39,7 @@ class ShowMedicines extends React.Component {
         let body = JSON.stringify(name)
         const url = new URL(window.location.href);
         if (url.pathname === '/showMachineMedicines') {
-            await this.setState({ip:sessionStorage.getItem('machineIP') + '/medicines?name=' + name});
+            await this.setState({ ip: sessionStorage.getItem('machineIP') + '/medicines?name=' + name });
             body = null;
         }
         let headers = new Headers();
@@ -51,10 +54,37 @@ class ShowMedicines extends React.Component {
         }).then(r => {
             if (r.status === 200) {
                 event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement)
-                toast.success("Medicine deleted!");
+                toast.success("Medicine " + name + " deleted!");
 
             } else
                 toast.error("Something unexpected happened! Try again!");
+        }).then(() => {
+            if (url.pathname === '/showMachineMedicines') {
+                fetch(sessionStorage.getItem('machineIP') + "/configuration/router/mapping", {
+                    method: "GET",
+                    headers: headers,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(element => {
+                            if (element.medicineName === name[0]) {
+                                data = data.filter(el => el !== element)
+                                fetch(sessionStorage.getItem("machineIP") + "/configuration/router/mapping", {
+                                    method: "POST",
+                                    headers: headers,
+                                    body: JSON.stringify(data)
+                                }).then(resp => {
+                                    if (resp.status === 200) {
+                                        toast.success("SlotID is now free to use!")
+                                    } else {
+                                        toast.error("Something unexpexted happened! Try again.")
+                                    }
+                                })
+                            }
+                        });
+
+                    })
+            }
         })
     }
 
@@ -70,7 +100,7 @@ class ShowMedicines extends React.Component {
                                 <thead>
                                     <tr>
                                         <th>name</th>
-                                        {this.state.ip !== 'http://localhost:8081/medicines' ?
+                                        {this.state.pathname === '/showMachineMedicines' ?
                                             <>
                                                 <th>price</th>
                                                 <th>amount</th>
@@ -87,7 +117,7 @@ class ShowMedicines extends React.Component {
                                     {this.state.data.map((medicine) =>
                                         <tr>
                                             <td>{medicine.name}</td>
-                                            {this.state.ip !== 'http://localhost:8081/medicines' ?
+                                            {this.state.pathname === '/showMachineMedicines' ?
                                                 <>
                                                     <td>{medicine.price}</td>
                                                     <td>{medicine.amount}</td>

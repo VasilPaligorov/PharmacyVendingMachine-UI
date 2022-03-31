@@ -44,9 +44,10 @@ class CreatePrescription extends React.Component {
 
     componentWillMount() {
         let names = [];
+        const url = new URL(window.location.href);
         let headers = new Headers();
         headers.set('Content-Type', 'application/json');
-        if (sessionStorage.getItem('machineIP')) {
+        if (url.pathname === '/createOrder') {
             fetch(sessionStorage.getItem('machineIP') + "/medicines?prescription=no", {
                 headers: headers,
             })
@@ -77,14 +78,14 @@ class CreatePrescription extends React.Component {
     }
 
     createPrescriptionRow() {
-        const array = [this.medicineInput, this.numberInput, 3];
         this.validateMedicine(this.medicineInput, this.numberInput);
         if (this.isFormValid()) {
             const table = document.querySelector("#prescription");
             const newRow = document.createElement("tr");
+            const array = [this.medicineInput, this.numberInput, 1];
             array.forEach(element => {
                 const newElement = document.createElement("td");
-                if (element === 3) {
+                if (element === 1) {
                     const newButton = document.createElement("button");
                     newButton.classList.add("rmvBtn");
                     newButton.innerText = "remove";
@@ -111,6 +112,7 @@ class CreatePrescription extends React.Component {
                     "amount": parseInt(data[i + 1].innerText)
                 });
             }
+            console.log(prescription);
             if (prescription.length !== 0) {
                 let headers = new Headers();
                 headers.set('Content-Type', 'application/json');
@@ -227,8 +229,8 @@ class CreatePrescription extends React.Component {
                             }} id="medicine" autoComplete="off"
                                 placeholder="Choose medicine:" />
                             <datalist id="medicines">
-                                {this.state.medicines.map(element => 
-                                    <option value={element}/>
+                                {this.state.medicines.map(element =>
+                                    <option value={element} />
                                 )}
                             </datalist>
                             <p>Error Message</p>
@@ -260,8 +262,7 @@ class CreatePrescription extends React.Component {
                             </tbody>
                         </table>
                     </div>
-                    <button className="btn last" type="button" onClick={() => this.createPrescription()}>Create Prescription
-                    </button>
+                    <button className="btn last" type="button" onClick={() => this.createPrescription()}>Create Prescription</button>
                 </div>
             </div>
         )

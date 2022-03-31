@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './elements/SharedElements/login/login';
 import Register from './elements/SharedElements/register/register';
-import ReportABug from './elements/SharedElements/reportABug/reportABug';
+import ReportABug from './elements/SharedElements/bug/reportABug';
 import ShowPrescriptions from './elements/SharedElements/prescriptions/showPrescriptions';
 import ShowMedicines from './elements/Admin/medicines/showMedicines';
 import CreatePrescription from './elements/SharedElements/prescriptions/createPrescription';
@@ -22,13 +22,13 @@ function App() {
             <>
               <Route path='/showPrescriptions' element={<ShowPrescriptions />} />
               <Route path='/createPrescription' element={<CreatePrescription />} />
-              <Route path='/createOrder' element={<CreatePrescription />} />
               <Route path='/showMedicines' element={<ShowMedicines />} />
               <Route path='/createMedicine' element={<CreateMedicine />} />
               <Route path='/reportABug' element={<ReportABug />} />
               <Route path='/showBugs' element={<ShowBugs />} />
-              {sessionStorage.getItem('machineIP') && localStorage.getItem("email")==='admin@gmail.com'? 
+              {sessionStorage.getItem('machineIP') ?
                 <>
+                  <Route path='/createOrder' element={<CreatePrescription />} />
                   <Route path='/showMachineMedicines' element={<ShowMedicines />} />
                   <Route path='/addMedicineToMachine' element={<CreateMedicine />} />
                 </> :
@@ -36,7 +36,6 @@ function App() {
               }
             </>
             : <></>
-
           }
 
         </Routes>

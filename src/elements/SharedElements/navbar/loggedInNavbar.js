@@ -19,14 +19,11 @@ class LoggedInNavbar extends React.Component {
     }
 
     isAdmin() {
-        if (localStorage.getItem('email') === 'admin@gmail.com')
-            return true
-        else
-            return false
+        return (localStorage.getItem('email') === 'admin')
     }
 
     getPlatform() {
-        if (localStorage.getItem('email') === 'admin@gmail.com')
+        if (localStorage.getItem('email') === 'admin')
             return (
                 <>
                     <li className="nav-item">
@@ -57,7 +54,7 @@ class LoggedInNavbar extends React.Component {
                 </>
             )
         else {
-            if (this.state.platform === "Android")
+            if (this.state.platform === "Android" || this.state.platform === "iOS")
                 return (
                     <>
                         <li className="nav-item">
