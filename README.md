@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Pharmacy Vending Machine UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  Проектът представлява потребителски интерфейс за автоматизирана прогажба на лекарства. За целта се използва Pharmacy Vending Machine. Идеята на машината е потребителите да имат постоянен достъп до всички лекарства, защото денонощните аптеки не са много на брой. На потребител с роля пациент могат да му бъдат издавани електронни рецепти, които той да изпълнява при успешна връзка с машината. Пациентът също така може да поръча директно от машината лекарства, за които не е нужно лекарско предписание. Потребител с роля лекар може да издава рецепти на потребители с роля пациент. Потребител с роля администратор може да поддържа централния и машинния сървър. На централния сървър са лекарствата от които се издават рецепти, самите рецепти и потребителские данни. На машинния сървър са лекарствата които машината съдържа, бройката им и на кой слот стои всяко от тях.
 
-## Available Scripts
+За по-детайлна информация:
+- https://docs.google.com/document/d/1gdWxk6k9jCX0GHXjttqSjO_0fgq57JPM/edit?usp=sharing&ouid=113485207765385965928&rtpof=true&sd=true
+- https://docs.google.com/document/d/10QNzdiNcF5HHBZ8c3H6pedpckiln-R5d/edit?rtpof=true&sd=true
 
-In the project directory, you can run:
+## Как да си сваля и използвам проекта?
 
-### `npm start`
+### Инструкции за сваляне
+1) Клониране на репото
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Инструкции за инсталация и стартиране
+1) https://bg.reactjs.org/docs/getting-started.html
+2) Смяна на порта на апликацията (следната команда в терминала: export PORT=5500)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Използвани технологии
+- HTML: https://html.com/
+- CSS: https://www.w3.org/Style/CSS/Overview.en.html
+- ReactJS: https://bg.reactjs.org/
+- Bootstrap: https://getbootstrap.com/
 
-### `npm test`
+## Информация за авторите на проекта
+* **Aлександър Александров** - разработил сървърите на Pharmacy Vending Machine и алгоритъма за изпълнение на рецептите от машината. Github: https://github.com/aalexandrov03
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* **Васил Палигоров** - реазработил потребителския интерфейс на Pharmacy Vending Machine. Github: https://github.com/VasilPaligorov
