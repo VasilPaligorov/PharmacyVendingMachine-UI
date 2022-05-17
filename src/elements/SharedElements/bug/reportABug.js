@@ -40,7 +40,6 @@ class ReportABug extends React.Component {
             }).then(r => {
                 if (r.status === 200) {
                     toast.success("Bug Reported");
-                    window.location.reload()
                 }
                 else
                     toast.error("Something unexpected happened! Try again!");
@@ -49,17 +48,15 @@ class ReportABug extends React.Component {
         }
     }
 
-    getBugTitle = (event) => {
+    getBugTitle = (event) => 
         this.setState({
             title: event.target.value
-        })
-    };
+        });
 
-    getBugBody = (event) => {
+    getBugBody = (event) => 
         this.setState({
             body: event.target.value
-        })
-    };
+        });
 
     validateForm() {
         if (this.state.title.trim() === '') {
@@ -121,17 +118,17 @@ class ReportABug extends React.Component {
 
                     <div className="input-group">
                         <label htmlFor="title">Bug title</label>
-                        <input type="text" value={this.state.title} onChange={event => {
+                        <input type="text" value={this.state.title} onChange={event => 
                             this.getBugTitle(event)
-                        }} id="title" placeholder="Bug title:" name="title" />
+                        } id="title" placeholder="Bug title:" name="title" />
                         <p>Error Message</p>
                     </div>
 
                     <div className="input-group">
                         <label htmlFor="bug">Bug Description</label>
-                        <textarea id="bug" value={this.state.body} onChange={event => {
+                        <textarea id="bug" value={this.state.body} onChange={event => 
                             this.getBugBody(event)
-                        }} placeholder="Bug description:" name="bug" />
+                        } placeholder="Bug description:" name="bug" />
                         <p>Error Message</p>
                     </div>
 

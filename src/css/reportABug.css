@@ -1,3 +1,9 @@
+#reportABug{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
 #reportABug #create-account-form {
     text-transform: uppercase;
 }

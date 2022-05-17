@@ -24,23 +24,20 @@ class CreatePrescription extends React.Component {
     }
 
 
-    getEmail = (event) => {
+    getEmail = (event) => 
         this.setState({
             email: event.target.value
-        })
-    };
+        });
 
-    getMedicine = (event) => {
+    getMedicine = (event) => 
         this.setState({
             medicine: event.target.value
-        })
-    };
-    getNumber = (event) => {
+        });
+
+    getNumber = (event) => 
         this.setState({
             number: event.target.value
-        })
-    };
-
+        });
 
     componentWillMount() {
         let names = [];
@@ -126,7 +123,6 @@ class CreatePrescription extends React.Component {
                         .then(data => {
                             if (data.status === 0) {
                                 toast.info(data.message + " Your prescription will be completed soon!");
-                                window.location.reload()
                             } else
                                 toast.error(data.message);
 
@@ -142,7 +138,6 @@ class CreatePrescription extends React.Component {
                     }).then(r => {
                         if (r.status === 200) {
                             toast.success("Prescription created!");
-                            window.location.reload();
                         } else if (r.status === 404)
                             this.setError(this.emailInput, "Invalid patient");
                         else

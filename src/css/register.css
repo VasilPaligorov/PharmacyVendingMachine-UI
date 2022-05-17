@@ -1,5 +1,12 @@
+#register{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
 #register #create-account-form {
     text-transform: uppercase;
+    position: relative;
 }
 
 #register .title {
@@ -79,4 +86,23 @@
     margin-bottom: -3%;
     text-align: center;
     display: block;
+}
+
+#register .accountType{
+    display: flex;
+    justify-content: center;
+}
+
+.accountType div{
+    padding: 3px;
+    background-color: #343a40;
+    color: white;
+    border-radius: 3px;
+    margin: 1px;
+    font-size: 20px;
+}
+
+.accountType div:hover{
+    background-color: #1e2225;
+    color: white;
 }

@@ -17,7 +17,7 @@ class Login extends React.Component {
         this.getPassword = this.getPassword.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         sessionStorage.clear()
         const url = new URL(window.location.href)
         const params = new URLSearchParams(url.search)
@@ -25,7 +25,7 @@ class Login extends React.Component {
             let headers = new Headers();
             const machineIP = atob(params.get('ip'));
             headers.set('Content-Type', 'application/json');
-            fetch(machineIP + "/configuration/status", {
+            await fetch(machineIP + "/configuration/status", {
                 headers: headers
             })
                 .then(response => response.json())
@@ -41,9 +41,10 @@ class Login extends React.Component {
                     toast.error("Machine is offline.")
                 });
         }
+
         if (window.localStorage.getItem('email'))
             window.location.href = ("/showPrescriptions");
-        
+
         this.form = document.querySelector('#create-account-form');
         this.emailInput = document.querySelector('#email');
         this.passwordInput = document.querySelector('#password');
@@ -51,46 +52,51 @@ class Login extends React.Component {
     }
 
 
-    getEmail = (event) => {
+    getEmail = (event) =>
         this.setState({
             email: event.target.value
-        })
-    };
+        });
 
-    getPassword = (event) => {
+    getPassword = (event) =>
         this.setState({
             password: event.target.value
-        })
-    };
+        });
 
     login() {
         this.validateForm();
         if (this.isFormValid() === true) {
             if (this.state.email === "admin@gmail.com" && this.state.password === "admin123") {
-                window.localStorage.setItem('email', 'admin');  
+                window.localStorage.setItem('email', 'admin');
                 window.localStorage.setItem('password', 'admin');
                 window.location.href = ("/showPrescriptions");
+                window.localStorage.setItem('profileType', 'admin');
             }
-            let user = 'doctor';
-            console.log(navigator.userAgentData.platform)
-            if (navigator.userAgentData.platform === "Android" || navigator.userAgentData.platform ==="iOS") 
-                user = 'patient';
             let headers = new Headers();
             headers.set('Authorization', 'Basic ' + btoa(this.state.email + ":" + this.state.password));
             headers.set('Content-Type', 'application/json');
-            fetch("http://localhost:8081/users/" + user, {
+            fetch("http://localhost:8081/users/doctor", {
                 method: 'GET', headers: headers
             }).then(r => {
                 if (r.status === 200) {
+                    window.localStorage.setItem('profileType', 'doctor');
                     window.localStorage.setItem('email', this.state.email);
                     window.localStorage.setItem('password', this.state.password);
-                    if (navigator.userAgentData.platform === "Android" || navigator.userAgentData.platform === "iOS")
-                        window.location.href = ("/showPrescriptions"); 
-                    else 
-                        window.location.href = ("/createPrescription");
+                    window.location.href = ("/createPrescription");
                 } else {
-                    this.setError(this.emailInput, "Email or password is incorrect.");
-                    this.setError(this.passwordInput, "Email or password is incorrect.");
+                    fetch("http://localhost:8081/users/patient", {
+                        method: 'GET', headers: headers
+                    }).then(response => {
+                        if (response.status === 200) {
+                            window.localStorage.setItem('profileType', 'patient');
+                            window.localStorage.setItem('email', this.state.email);
+                            window.localStorage.setItem('password', this.state.password);
+                            window.location.href = ("/showPrescriptions");
+                        }
+                        else {
+                            this.setError(this.emailInput, "Email or password is incorrect.");
+                            this.setError(this.passwordInput, "Email or password is incorrect.");
+                        }
+                    })
                 }
             });
         }

@@ -12,13 +12,9 @@ class Navbar extends React.Component {
     }
 
     render() {
-        let platform = ""
-        if (navigator.userAgentData.platform === "Android") {
-            platform = "Mobile"
-        }
         return (
             <>
-                <a className="navbar-brand"><strong>Pharmacy Vending Machine {platform}</strong></a>
+                <a className="navbar-brand"><strong>Pharmacy Vending Machine</strong></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent-6"
                         aria-controls="navbarSupportedContent-6" aria-expanded="false"

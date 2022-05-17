@@ -23,35 +23,30 @@ class CreateMedicine extends React.Component {
         this.getSlotID = this.getSlotID.bind(this);
     }
 
-    getMedicine = (event) => {
+    getMedicine = (event) =>
         this.setState({
             medicine: event.target.value
-        })
-    };
+        });
 
-    getNeedsPrescription = (event) => {
+    getNeedsPrescription = (event) => 
         this.setState({
             needsPrescription: event.target.value
-        })
-    };
+        });
 
-    getAmount = (event) => {
+    getAmount = (event) =>
         this.setState({
             amount: event.target.value
-        })
-    };
+        });
 
-    getPrice = (event) => {
+    getPrice = (event) => 
         this.setState({
             price: event.target.value
-        })
-    };
+        });
 
-    getSlotID = (event) => {
+    getSlotID = (event) => 
         this.setState({
             slotID: event.target.value
-        })
-    };
+        });
 
     componentDidMount() {
         const url = new URL(window.location.href);

@@ -7,7 +7,6 @@ class ShowPrescriptions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            platform: navigator.userAgentData.platform,
             validData: "",
             invalidData: "",
             admin: false,
@@ -17,9 +16,9 @@ class ShowPrescriptions extends React.Component {
         };
     }
 
-    componentDidMount() {
+    getPrescriptions() {
         let user = 'doctor';
-        if (this.state.platform === "Android" || this.state.platform === "iOS") {
+        if (localStorage.getItem("profileType")==="patient") {
             user = 'patient';
             this.setState({ patient: true });
             this.setState({ doctor: false });
@@ -52,6 +51,10 @@ class ShowPrescriptions extends React.Component {
             });
     }
 
+    componentDidMount(){
+        this.getPrescriptions()
+    }
+
     setOnClick(event) {
         if (event.target.nextSibling.style.display === 'none')
             event.target.nextSibling.style.display = 'block';
@@ -71,7 +74,7 @@ class ShowPrescriptions extends React.Component {
         }).then(r => {
             if (r.status === 200) {
                 toast.success("Prescription deleted!");
-                window.location.reload()
+                this.getPrescriptions()
             } else
                 toast.error("Something unexpected happened! Try again!");
         })
@@ -89,7 +92,7 @@ class ShowPrescriptions extends React.Component {
         }).then(r => {
             if (r.status === 200) {
                 toast.success("Done! Prescription 'valid' state changed!");
-                window.location.reload()
+                this.getPrescriptions()
             } else
                 toast.error("Something unexpected happened! Try again!");
         })
@@ -107,7 +110,6 @@ class ShowPrescriptions extends React.Component {
             .then(data => {
                 if (data.status === 0) {
                     toast.info(data.message + " Your prescription will be completed soon!");
-                    window.location.reload()
                 } else
                     toast.error(data.message);
 

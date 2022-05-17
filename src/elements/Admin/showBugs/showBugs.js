@@ -7,12 +7,12 @@ class ShowBugs extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null
+            data: null,
+            a: true
         };
     }
 
-    componentDidMount() {
-
+    getBugs() {
         let headers = new Headers();
         headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem("email") + ":" + localStorage.getItem("password")));
         headers.set('Content-Type', 'application/json');
@@ -21,9 +21,15 @@ class ShowBugs extends React.Component {
         })
             .then(response => response.json())
             .then(data => {
-                if (data.length !== 0)
+                if (data.length !== 0) {
                     this.setState({ data: data })
+
+                }
             });
+    }
+
+    componentDidMount() {
+        this.getBugs()
     }
 
     setOnClick(event) {
@@ -45,7 +51,7 @@ class ShowBugs extends React.Component {
         }).then(r => {
             if (r.status === 200) {
                 toast.success("Bug fixed!");
-                event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement)
+                this.getBugs()
             } else
                 toast.error("Something unexpected happened! Try again!");
         })
@@ -54,29 +60,29 @@ class ShowBugs extends React.Component {
 
     render() {
         return (
-        <div className="content" id="showBugs">
-            <h1>Bugs:</h1>
-            <hr></hr>
-            {
-                this.state.data ?
-                    this.state.data.map((element) =>
-                        <div>
-                            <button className="btn" onClick={(event) => this.setOnClick(event)}>{"Bug id:" + element.id}</button>
-                            <div style={{ display: 'none' }}>
-                                <div className="div">
-                                    <h3>{element.title}</h3>
-                                    <hr></hr>
-                                    <h5>{element.description}</h5>
+            <div className="content" id="showBugs">
+                <h1>Bugs:</h1>
+                <hr></hr>
+                {
+                    this.state.data ?
+                        this.state.data.map((element) =>
+                            <div>
+                                <button className="btn" onClick={(event) => this.setOnClick(event)}>{"Bug id:" + element.id}</button>
+                                <div style={{ display: 'none' }}>
+                                    <div className="div">
+                                        <h3>{element.title}</h3>
+                                        <hr></hr>
+                                        <h5>{element.description}</h5>
+                                    </div>
+                                    <button className="btn2 green" onClick={(event) => this.setDelete([element.id], event)}>Mark
+                                        bug as fixed
+                                    </button>
                                 </div>
-                                <button className="btn2 green" onClick={(event) => this.setDelete([element.id], event)}>Mark
-                                    bug as fixed
-                                </button>
                             </div>
-                        </div>
-                    )
-                    : <p>There's no bugs yet!</p>
-            }
-        </div>)
+                        )
+                        : <p>There's no bugs yet!</p>
+                }
+            </div>)
     }
 }
 

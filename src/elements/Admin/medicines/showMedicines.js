@@ -13,9 +13,9 @@ class ShowMedicines extends React.Component {
         };
     }
 
-    async componentDidMount() {
+    async getMedicines() {
         const url = new URL(window.location.href);
-        this.setState({pathname: url.pathname});
+        this.setState({ pathname: url.pathname });
         if (url.pathname === '/showMachineMedicines') {
             const newIP = sessionStorage.getItem('machineIP') + '/medicines?prescription=both';
             await this.setState({ ip: newIP });
@@ -32,10 +32,13 @@ class ShowMedicines extends React.Component {
                 if (data.length !== 0)
                     this.setState({ data: data });
             });
-
     }
 
-    async setDelete(name, event) {
+    async componentDidMount() {
+        this.getMedicines()
+    }
+
+    async setDelete(name) {
         let body = JSON.stringify(name)
         const url = new URL(window.location.href);
         if (url.pathname === '/showMachineMedicines') {
@@ -49,13 +52,10 @@ class ShowMedicines extends React.Component {
             method: "DELETE",
             headers: headers,
             body: body
-
-
         }).then(r => {
             if (r.status === 200) {
-                event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement)
                 toast.success("Medicine " + name + " deleted!");
-
+                this.getMedicines()
             } else
                 toast.error("Something unexpected happened! Try again!");
         }).then(() => {
@@ -129,7 +129,7 @@ class ShowMedicines extends React.Component {
                                             <td>{medicine.needsPrescription ? "needs prescription" : "doesn't need prescription"}</td>
                                             <td>
                                                 <button className="rmvBtn"
-                                                    onClick={(event) => this.setDelete([medicine.name], event)}>Delete
+                                                    onClick={(event) => this.setDelete([medicine.name])}>Delete
                                                     Medicine
                                                 </button>
                                             </td>

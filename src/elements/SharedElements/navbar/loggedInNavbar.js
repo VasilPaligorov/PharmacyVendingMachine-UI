@@ -4,9 +4,7 @@ class LoggedInNavbar extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            platform: navigator.userAgentData.platform,
-        }
+        this.state = {}
     }
 
     removeSession() {
@@ -19,11 +17,11 @@ class LoggedInNavbar extends React.Component {
     }
 
     isAdmin() {
-        return (localStorage.getItem('email') === 'admin')
+        return (localStorage.getItem('profileType') === 'admin')
     }
 
-    getPlatform() {
-        if (localStorage.getItem('email') === 'admin')
+    getNavbarButtons() {
+        if (this.isAdmin())
             return (
                 <>
                     <li className="nav-item">
@@ -54,7 +52,7 @@ class LoggedInNavbar extends React.Component {
                 </>
             )
         else {
-            if (this.state.platform === "Android" || this.state.platform === "iOS")
+            if (localStorage.getItem("profileType") === "patient")
                 return (
                     <>
                         <li className="nav-item">
@@ -99,7 +97,7 @@ class LoggedInNavbar extends React.Component {
                 </button>
                 <div className="collapse navbar-collapse justify-content-between" id="navbarSupportedContent-6">
                     <ul className="navbar-nav">
-                        {this.getPlatform()}
+                        {this.getNavbarButtons()}
                     </ul>
                     <ul className="navbar-nav">
                         {sessionStorage.getItem('machineIP') ? <>
