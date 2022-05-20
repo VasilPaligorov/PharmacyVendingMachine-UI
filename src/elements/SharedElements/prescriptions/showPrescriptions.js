@@ -7,12 +7,12 @@ class ShowPrescriptions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            validData: "",
-            invalidData: "",
+            validData: null,
+            invalidData: null,
             admin: false,
             doctor: true,
             patient: false,
-            data: ""
+            data: null
         };
     }
 
@@ -36,6 +36,8 @@ class ShowPrescriptions extends React.Component {
         })
             .then(response => response.json())
             .then(data => {
+                this.setState({ validData: null });
+                this.setState({ invalidData: null });
                 let ValidData = [];
                 let InvalidData = [];
                 data.forEach(element => {
@@ -74,7 +76,7 @@ class ShowPrescriptions extends React.Component {
         }).then(r => {
             if (r.status === 200) {
                 toast.success("Prescription deleted!");
-                this.getPrescriptions()
+                this.getPrescriptions();
             } else
                 toast.error("Something unexpected happened! Try again!");
         })
@@ -92,7 +94,7 @@ class ShowPrescriptions extends React.Component {
         }).then(r => {
             if (r.status === 200) {
                 toast.success("Done! Prescription 'valid' state changed!");
-                this.getPrescriptions()
+                this.getPrescriptions();
             } else
                 toast.error("Something unexpected happened! Try again!");
         })

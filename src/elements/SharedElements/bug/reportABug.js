@@ -39,7 +39,7 @@ class ReportABug extends React.Component {
                 body: JSON.stringify(data),
             }).then(r => {
                 if (r.status === 200) {
-                    toast.success("Bug Reported");
+                    toast.success("Bug Reported!");
                 }
                 else
                     toast.error("Something unexpected happened! Try again!");
