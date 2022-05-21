@@ -1,6 +1,6 @@
 import React from "react";
 import "./../../../css/login.css";
-
+import { Buffer } from "buffer";
 import { toast } from 'react-toastify';
 
 class Login extends React.Component {
@@ -23,7 +23,7 @@ class Login extends React.Component {
         const params = new URLSearchParams(url.search)
         if (params.get('ip')) {
             let headers = new Headers();
-            const machineIP = atob(params.get('ip'));
+            const machineIP = Buffer.from(params.get('ip'), 'base64').toString('ascii');
             headers.set('Content-Type', 'application/json');
             await fetch(machineIP + "/configuration/status", {
                 headers: headers
@@ -72,7 +72,7 @@ class Login extends React.Component {
                 window.localStorage.setItem('profileType', 'admin');
             }
             let headers = new Headers();
-            headers.set('Authorization', 'Basic ' + btoa(this.state.email + ":" + this.state.password));
+            headers.set('Authorization', 'Basic ' + Buffer.from(this.state.email + ":" + this.state.password).toString('base64'));
             headers.set('Content-Type', 'application/json');
             fetch("http://localhost:8081/users/doctor", {
                 method: 'GET', headers: headers

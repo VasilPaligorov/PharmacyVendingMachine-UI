@@ -1,6 +1,7 @@
 import React from "react";
 import { toast } from "react-toastify";
 import '../../../css/showBugs.css';
+import { Buffer } from "buffer";
 
 class ShowBugs extends React.Component {
 
@@ -14,7 +15,7 @@ class ShowBugs extends React.Component {
 
     getBugs() {
         let headers = new Headers();
-        headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem("email") + ":" + localStorage.getItem("password")));
+        headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
         headers.set('Content-Type', 'application/json');
         fetch("http://localhost:8081/bugs", {
             headers: headers
@@ -39,15 +40,13 @@ class ShowBugs extends React.Component {
             event.target.nextSibling.style.display = 'none';
     }
 
-    setDelete(id, event) {
+    setDelete(id) {
         let headers = new Headers();
-        headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem('email') + ":" + localStorage.getItem('password')));
+        headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
         headers.set('Content-Type', 'application/json');
-        fetch("http://localhost:8081/bugs", {
+        fetch("http://localhost:8081/bugs?id=" + id, {
             method: "DELETE",
-            headers: headers,
-            body: JSON.stringify(id)
-
+            headers: headers,   
         }).then(r => {
             if (r.status === 200) {
                 toast.success("Bug fixed!");
@@ -74,7 +73,7 @@ class ShowBugs extends React.Component {
                                         <hr></hr>
                                         <h5>{element.description}</h5>
                                     </div>
-                                    <button className="btn2 green" onClick={(event) => this.setDelete([element.id], event)}>Mark
+                                    <button className="btn2 green" onClick={() => this.setDelete(element.id)}>Mark
                                         bug as fixed
                                     </button>
                                 </div>

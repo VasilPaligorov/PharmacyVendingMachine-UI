@@ -1,6 +1,7 @@
 import React from "react";
 import { toast } from "react-toastify";
-import '../../../css/createPrescription.css'
+import '../../../css/createPrescription.css';
+import { Buffer } from "buffer";
 
 class CreatePrescription extends React.Component {
     medicineInput;
@@ -58,7 +59,7 @@ class CreatePrescription extends React.Component {
                 })
         }
         else {
-            headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem('email') + ":" + localStorage.getItem('password')));
+            headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
             fetch("http://localhost:8081/medicines", {
                 headers: headers,
             })
@@ -113,7 +114,7 @@ class CreatePrescription extends React.Component {
             if (prescription.length !== 0) {
                 let headers = new Headers();
                 headers.set('Content-Type', 'application/json');
-                if (sessionStorage.getItem('machineIP')) {
+                if (sessionStorage.getItem('machineIP')&&localStorage.getItem('profileType')!=='doctor') {
                     fetch(sessionStorage.getItem('machineIP') + "/executor?fetch=false", {
                         method: "POST",
                         headers: headers,
@@ -129,7 +130,7 @@ class CreatePrescription extends React.Component {
                         })
                 }
                 else {
-                    headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem('email') + ":" + localStorage.getItem('password')));
+                    headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
                     fetch("http://localhost:8081/prescriptions?patient_email=" + this.state.email.trim(), {
                         method: "POST",
                         headers: headers,
@@ -206,7 +207,7 @@ class CreatePrescription extends React.Component {
                     <h1>Create prescription:</h1>
                     <div className="topBar">
 
-                        {!sessionStorage.getItem('machineIP') ?
+                        {!sessionStorage.getItem('machineIP')&&localStorage.getItem('profileType')==='doctor'?
                             <div className="wrapper">
                                 <label htmlFor="patient">patient email</label>
                                 <input name="patient" alue={this.state.email} onChange={event => {

@@ -1,6 +1,7 @@
 import React from "react";
 import { toast } from "react-toastify";
 import '../../../css/showMedicines.css';
+import { Buffer } from "buffer";
 
 class ShowMedicines extends React.Component {
 
@@ -8,7 +9,7 @@ class ShowMedicines extends React.Component {
         super(props);
         this.state = {
             data: null,
-            ip: 'http://localhost:8081/medicines',
+            ip: 'http://localhost:8081/medicines?name=',
             pathname: ""
         };
     }
@@ -22,7 +23,7 @@ class ShowMedicines extends React.Component {
 
         }
         let headers = new Headers();
-        headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem("email") + ":" + localStorage.getItem("password")));
+        headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
         headers.set('Content-Type', 'application/json');
         fetch(this.state.ip, {
             headers: headers
@@ -35,23 +36,20 @@ class ShowMedicines extends React.Component {
     }
 
     async componentDidMount() {
-        this.getMedicines()
+        this.getMedicines();
     }
 
     async setDelete(name) {
-        let body = JSON.stringify(name)
         const url = new URL(window.location.href);
         if (url.pathname === '/showMachineMedicines') {
             await this.setState({ ip: sessionStorage.getItem('machineIP') + '/medicines?name=' + name });
-            body = null;
         }
         let headers = new Headers();
-        headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem('email') + ":" + localStorage.getItem('password')));
+        headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
         headers.set('Content-Type', 'application/json');
-        fetch(this.state.ip, {
+        fetch(this.state.ip + name, {
             method: "DELETE",
-            headers: headers,
-            body: body
+            headers: headers
         }).then(r => {
             if (r.status === 200) {
                 toast.success("Medicine " + name + " deleted!");
@@ -129,7 +127,7 @@ class ShowMedicines extends React.Component {
                                             <td>{medicine.needsPrescription ? "needs prescription" : "doesn't need prescription"}</td>
                                             <td>
                                                 <button className="rmvBtn"
-                                                    onClick={(event) => this.setDelete([medicine.name])}>Delete
+                                                    onClick={() => this.setDelete(medicine.name)}>Delete
                                                     Medicine
                                                 </button>
                                             </td>

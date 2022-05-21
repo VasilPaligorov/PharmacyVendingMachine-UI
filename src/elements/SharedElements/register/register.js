@@ -8,18 +8,18 @@ class Register extends React.Component {
     fullNameInput;
     emailInput;
     uinInput;
-    workplaceInput;
+    regionInput;
     passwordInput;
     confirmPasswordInput;
 
     constructor(props) {
         super(props);
         this.state = {
-            fullName: "", email: "", uin: "", workplace: "", password: "", confirmPassword: "", user: "doctor",
+            fullName: "", email: "", uin: "", region: "", password: "", confirmPassword: "", user: "doctor",
         };
         this.getFullName = this.getFullName.bind(this);
         this.getEmail = this.getEmail.bind(this);
-        this.getWorkplace = this.getWorkplace.bind(this);
+        this.getRegion = this.getRegion.bind(this);
         this.getUIN = this.getUIN.bind(this);
         this.getPassword = this.getPassword.bind(this);
         this.getConfirmPassword = this.getConfirmPassword.bind(this);
@@ -27,7 +27,7 @@ class Register extends React.Component {
 
     getFullName = (event) => this.setState({ fullName: event.target.value });
     getEmail = (event) => this.setState({ email: event.target.value });
-    getWorkplace = (event) => this.setState({ workplace: event.target.value });
+    getRegion = (event) => this.setState({ region: event.target.value });
     getUIN = (event) => this.setState({ uin: event.target.value });
     getPassword = (event) => this.setState({ password: event.target.value });
     getConfirmPassword = (event) => this.setState({ confirmPassword: event.target.value });
@@ -40,7 +40,7 @@ class Register extends React.Component {
         this.emailInput = document.querySelector('#email');
         if (this.state.user === "doctor") {
             this.uinInput = document.querySelector('#uin');
-            this.workplaceInput = document.querySelector('#workplace');
+            this.regionInput = document.querySelector('#region');
         }
         this.passwordInput = document.querySelector('#password');
         this.confirmPasswordInput = document.querySelector('#confirm-password');
@@ -54,7 +54,7 @@ class Register extends React.Component {
                 role: this.state.user.toUpperCase(),
                 uin: parseInt(this.state.uin),
                 email: this.state.email,
-                workplace: this.state.workplace,
+                region: this.state.region,
                 password: this.state.password,
             }
             fetch("http://localhost:8081/users/" + this.state.user, {
@@ -112,12 +112,12 @@ class Register extends React.Component {
                 this.setSuccess(this.uinInput);
             }
 
-            if (this.state.workplace.trim() === '') {
-                this.setError(this.workplaceInput, 'Workspace can not be empty');
-            } else if (this.state.workplace.trim().length < 6) {
-                this.setError(this.workplaceInput, 'Workspace must be at least 6 characters');
+            if (this.state.region.trim() === '') {
+                this.setError(this.regionInput, 'Workspace can not be empty');
+            } else if (this.state.region.trim().length < 6) {
+                this.setError(this.regionInput, 'Workspace must be at least 6 characters');
             } else {
-                this.setSuccess(this.workplaceInput);
+                this.setSuccess(this.regionInput);
             }
         }
 
@@ -176,10 +176,10 @@ class Register extends React.Component {
                     </div>
 
                     <div className="input-group">
-                        <label htmlFor="workplace">Workplace</label>
-                        <input type="text" value={this.state.workplace} onChange={event =>
-                            this.getWorkplace(event)
-                        } id="workplace" placeholder="Workplace:" name="workplace" />
+                        <label htmlFor="region">Region</label>
+                        <input type="text" value={this.state.region} onChange={event =>
+                            this.getRegion(event)
+                        } id="region" placeholder="Region:" name="region" />
                         <p>Error Message</p>
                     </div>
                 </>

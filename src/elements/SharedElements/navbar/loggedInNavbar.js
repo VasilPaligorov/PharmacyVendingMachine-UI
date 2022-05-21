@@ -88,7 +88,7 @@ class LoggedInNavbar extends React.Component {
     render() {
         return (
             <>
-                <a className="navbar-brand" href="/"><strong>Pharmacy Vending Machine</strong></a>
+                <a className="navbar-brand"><strong>Pharmacy Vending Machine</strong></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent-6"
                     aria-controls="navbarSupportedContent-6" aria-expanded="false"

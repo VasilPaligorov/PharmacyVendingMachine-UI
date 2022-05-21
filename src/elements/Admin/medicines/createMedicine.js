@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Buffer } from "buffer";
 import { toast } from 'react-toastify';
 import "../../../css/createMedicine.css"
 
@@ -28,7 +28,7 @@ class CreateMedicine extends React.Component {
             medicine: event.target.value
         });
 
-    getNeedsPrescription = (event) => 
+    getNeedsPrescription = (event) =>
         this.setState({
             needsPrescription: event.target.value
         });
@@ -38,12 +38,12 @@ class CreateMedicine extends React.Component {
             amount: event.target.value
         });
 
-    getPrice = (event) => 
+    getPrice = (event) =>
         this.setState({
             price: event.target.value
         });
 
-    getSlotID = (event) => 
+    getSlotID = (event) =>
         this.setState({
             slotID: event.target.value
         });
@@ -54,7 +54,7 @@ class CreateMedicine extends React.Component {
         if (url.pathname === '/addMedicineToMachine') {
             this.setState({ pathname: url.pathname });
             let headers = new Headers();
-            headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem("email") + ":" + localStorage.getItem("password")));
+            headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
             headers.set('Content-Type', 'application/json');
             fetch("http://localhost:8081/medicines", {
                 headers: headers,
@@ -86,7 +86,7 @@ class CreateMedicine extends React.Component {
             if (this.state.pathname) {
                 let headers = new Headers();
                 headers.set('Content-Type', 'application/json');
-                headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem('email') + ":" + localStorage.getItem('password')));
+                headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
                 fetch(sessionStorage.getItem("machineIP") + "/medicines", {
                     method: "POST",
                     headers: headers,
@@ -102,34 +102,26 @@ class CreateMedicine extends React.Component {
                 }).then(r => {
                     if (r.status === 200) {
                         fetch(sessionStorage.getItem("machineIP") + "/configuration/router/mapping", {
-                            method: "GET",
+                            method: "POST",
                             headers: headers,
+                            body: JSON.stringify([{
+                                "medicineName": this.state.medicine,
+                                "slotID": this.state.slotID
+                            }])
+                        }).then(resp => {
+                            if (resp.status === 200) {
+                                toast.success("Medicine created!")
+                            } else {
+                                toast.error("Invalid slot ID")
+                                this.setError(this.slotInput, "This slot is already taken!")
+                                fetch(sessionStorage.getItem("machineIP") + '/medicines?name=' + this.state.medicine, {
+                                    method: "DELETE",
+                                    headers: headers
+                                })
+                            }
                         })
-                            .then(response => response.json())
-                            .then(data => {
-                                data.push({
-                                    "medicineName": this.state.medicine,
-                                    "slotID": parseInt(this.state.slotID)
-                                })
-                                fetch(sessionStorage.getItem("machineIP") + "/configuration/router/mapping", {                               
-                                    method: "POST",
-                                    headers: headers,
-                                    body: JSON.stringify(data)
-                                }).then(resp => {
-                                    if (resp.status === 200) {
-                                        toast.success("Medicine created!")
-                                    } else {
-                                        toast.error("Invalid slot ID")
-                                        this.setError(this.slotInput, "This slot is already taken!")
-                                        fetch(sessionStorage.getItem("machineIP") + '/medicines?name=' + this.state.medicine, {
-                                            method: "DELETE",
-                                            headers: headers
-                                        })
-                                    }
-                                })
-                            })
                     }
-                    else if(r.status === 302){
+                    else if (r.status === 302) {
                         fetch(sessionStorage.getItem("machineIP") + "/medicines?name=" + this.state.currentMedicine.name, {
                             method: "PUT",
                             headers: headers,
@@ -156,17 +148,16 @@ class CreateMedicine extends React.Component {
             } else {
                 let headers = new Headers();
                 headers.set('Content-Type', 'application/json');
-                headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem('email') + ":" + localStorage.getItem('password')));
+                headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
                 fetch("http://localhost:8081/medicines", {
                     method: "POST",
                     headers: headers,
-                    body: JSON.stringify([
+                    body: JSON.stringify(
                         {
                             "name": this.state.medicine,
                             "needsPrescription": this.state.needsPrescription
                         }
-                    ])
-
+                    )
                 }).then(r => {
                     if (r.status === 200) {
                         toast.success("Medicine created!");

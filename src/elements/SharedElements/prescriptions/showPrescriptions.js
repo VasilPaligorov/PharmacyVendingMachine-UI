@@ -1,6 +1,7 @@
 import React from "react";
 import { toast } from "react-toastify";
 import '../../../css/showPrescriptions.css';
+import { Buffer } from "buffer";
 
 class ShowPrescriptions extends React.Component {
 
@@ -18,7 +19,7 @@ class ShowPrescriptions extends React.Component {
 
     getPrescriptions() {
         let user = 'doctor';
-        if (localStorage.getItem("profileType")==="patient") {
+        if (localStorage.getItem("profileType") === "patient") {
             user = 'patient';
             this.setState({ patient: true });
             this.setState({ doctor: false });
@@ -29,7 +30,7 @@ class ShowPrescriptions extends React.Component {
             user = 'all';
         }
         let headers = new Headers();
-        headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem("email") + ":" + localStorage.getItem("password")));
+        headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
         headers.set('Content-Type', 'application/json');
         fetch("http://localhost:8081/prescriptions/" + user, {
             headers: headers
@@ -53,8 +54,8 @@ class ShowPrescriptions extends React.Component {
             });
     }
 
-    componentDidMount(){
-        this.getPrescriptions()
+    componentDidMount() {
+        this.getPrescriptions();
     }
 
     setOnClick(event) {
@@ -66,13 +67,11 @@ class ShowPrescriptions extends React.Component {
 
     setDelete(id) {
         let headers = new Headers();
-        headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem('email') + ":" + localStorage.getItem('password')));
+        headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
         headers.set('Content-Type', 'application/json');
-        fetch("http://localhost:8081/prescriptions", {
+        fetch("http://localhost:8081/prescriptions?id=" + id, {
             method: "DELETE",
-            headers: headers,
-            body: JSON.stringify(id)
-
+            headers: headers
         }).then(r => {
             if (r.status === 200) {
                 toast.success("Prescription deleted!");
@@ -84,13 +83,11 @@ class ShowPrescriptions extends React.Component {
 
     setChangeValid(id, valid) {
         let headers = new Headers();
-        headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem('email') + ":" + localStorage.getItem('password')));
+        headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
         headers.set('Content-Type', 'application/json');
-        fetch("http://localhost:8081/prescriptions?valid=" + valid, {
+        fetch("http://localhost:8081/prescriptions?id=" + id + "&valid=" + valid, {
             method: "PUT",
             headers: headers,
-            body: JSON.stringify(id)
-
         }).then(r => {
             if (r.status === 200) {
                 toast.success("Done! Prescription 'valid' state changed!");
@@ -150,13 +147,13 @@ class ShowPrescriptions extends React.Component {
                                     {this.state.doctor ?
                                         <>
                                             <button className="btn2 red"
-                                                onClick={() => this.setChangeValid([element.id], false)}>Make
+                                                onClick={() => this.setChangeValid(element.id, false)}>Make
                                                 Prescription Invalid
                                             </button>
                                         </  >
                                         : <></>}
                                     {this.state.admin ?
-                                        <button className="btn2 red" onClick={() => this.setDelete([element.id])}>Delete
+                                        <button className="btn2 red" onClick={() => this.setDelete(element.id)}>Delete
                                             Prescription
                                         </button>
                                         : <></>
@@ -201,13 +198,13 @@ class ShowPrescriptions extends React.Component {
                                     {this.state.doctor ?
                                         <>
                                             <button className="btn2 green"
-                                                onClick={() => this.setChangeValid([element.id], true)}>Make
+                                                onClick={() => this.setChangeValid(element.id, true)}>Make
                                                 Prescription Valid
                                             </button>
                                         </  >
                                         : <></>}
                                     {this.state.admin ?
-                                        <button className="btn2 red" onClick={() => this.setDelete([element.id])}>Delete
+                                        <button className="btn2 red" onClick={() => this.setDelete(element.id)}>Delete
                                             Prescription
                                         </button>
                                         : <></>

@@ -1,6 +1,7 @@
 import React from "react";
 import { toast } from "react-toastify";
-import '../../../css/reportABug.css'
+import '../../../css/reportABug.css';
+import { Buffer } from "buffer";
 
 class ReportABug extends React.Component {
     form;
@@ -22,21 +23,29 @@ class ReportABug extends React.Component {
         this.bugBodyInput = document.querySelector('#bug');
     }
 
+    getBugTitle = (event) =>
+        this.setState({
+            title: event.target.value
+        });
+
+    getBugBody = (event) =>
+        this.setState({
+            body: event.target.value
+        });
 
     reportABug() {
         this.validateForm();
         if (this.isFormValid() === true) {
-            const data = {
-                description: this.state.body,
-                title: this.state.title
-            }
             let headers = new Headers();
-            headers.set('Authorization', 'Basic ' + btoa(localStorage.getItem('email') + ":" + localStorage.getItem('password')));
+            headers.set('Authorization', 'Basic ' + Buffer.from(localStorage.getItem("email") + ":" + localStorage.getItem("password")).toString('base64'));
             headers.set('Content-Type', 'application/json');
             fetch("http://localhost:8081/bugs", {
                 method: 'POST',
                 headers: headers,
-                body: JSON.stringify(data),
+                body: JSON.stringify({
+                    description: this.state.body,
+                    title: this.state.title
+                }),
             }).then(r => {
                 if (r.status === 200) {
                     toast.success("Bug Reported!");
@@ -47,16 +56,6 @@ class ReportABug extends React.Component {
             });
         }
     }
-
-    getBugTitle = (event) => 
-        this.setState({
-            title: event.target.value
-        });
-
-    getBugBody = (event) => 
-        this.setState({
-            body: event.target.value
-        });
 
     validateForm() {
         if (this.state.title.trim() === '') {
@@ -118,7 +117,7 @@ class ReportABug extends React.Component {
 
                     <div className="input-group">
                         <label htmlFor="title">Bug title</label>
-                        <input type="text" value={this.state.title} onChange={event => 
+                        <input type="text" value={this.state.title} onChange={event =>
                             this.getBugTitle(event)
                         } id="title" placeholder="Bug title:" name="title" />
                         <p>Error Message</p>
@@ -126,7 +125,7 @@ class ReportABug extends React.Component {
 
                     <div className="input-group">
                         <label htmlFor="bug">Bug Description</label>
-                        <textarea id="bug" value={this.state.body} onChange={event => 
+                        <textarea id="bug" value={this.state.body} onChange={event =>
                             this.getBugBody(event)
                         } placeholder="Bug description:" name="bug" />
                         <p>Error Message</p>
